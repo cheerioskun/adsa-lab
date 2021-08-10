@@ -10,8 +10,7 @@ use std::fs;
 fn preprocess(p: &Vec<char>) -> Vec<usize> {
     // Prefix stores the max value k such that
     // Pₖ ⊏ Pᵢ and Pₖ ⊐ Pᵢ
-    
-    let mut prefix = vec![0, p.len() - 1];
+    let mut prefix = vec![0; p.len()];
     for i in 1..p.len() {
         let mut k = prefix[i - 1];
         while k > 0 && p[i] != p[k] {
@@ -22,7 +21,6 @@ fn preprocess(p: &Vec<char>) -> Vec<usize> {
         } else {
             prefix[i] = 0;
         }
-        print!("{}", prefix[i]);
     }
     prefix
 }
@@ -54,6 +52,9 @@ fn kmp(t: &str, p: &str) -> Option<Vec<usize>> {
                 }
             }
         }
+        if j == p.len() {
+            offsets.push(t.len() - j);
+        }
         Some(offsets)
     }
 }
@@ -68,7 +69,6 @@ fn main() {
                                 .collect();
     let text = input[0];
     let pattern = input[1];
-    println!("t: {}, p: {}", text, pattern);
     let offsets = match kmp(&text, &pattern) {
         Some(x) => x,
         None => vec![0;0]
