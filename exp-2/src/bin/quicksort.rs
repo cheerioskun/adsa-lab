@@ -32,11 +32,11 @@ fn quicksort(arr: &mut Vec<i32>, l: usize, r: usize) {
     // all elems before i are <= pivot and all elems
     // after j are > pivot
     while i < j{
-        while i < j && arr[i] <= arr[r]{ 
+        while i < j && arr[i] >= arr[r]{ 
             i += 1;
         }
         // i points to elem that is greater than pivot
-        while j > i && arr[j] > arr[r]{ 
+        while j > i && arr[j] < arr[r]{ 
             j -= 1;
         }
         // j points to elem that is smaller than or equal to pivot

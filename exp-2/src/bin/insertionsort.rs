@@ -1,25 +1,17 @@
 use std::fs;
 
-
-fn swap(arr: &mut [i32], i: usize, j: usize) {
-    let temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-}
-
-fn selectionsort(arr: &mut [i32]) {
+fn insertionsort(arr: &mut [i32]) {
     // Size > 1
     if arr.len() > 1 {
-        let mut mindex = 0;
-        let mut i = 1;
-        while i < arr.len() {
-            if arr[i] < arr[mindex] {
-                mindex = i;
-            }
-            i += 1;
-        }
-        swap(arr, 0, mindex);
-        selectionsort(&mut arr[1..]);
+        let n = arr.len();
+        insertionsort(&mut arr[0..n - 1]);
+        let mut j = n - 1;
+        let elem = arr[j];
+        while j > 0 && arr[j - 1] > elem {
+            arr[j] = arr[j - 1];
+            j -= 1;
+        } 
+        arr[j] = elem;
     }
 }
 
@@ -34,8 +26,7 @@ fn main() {
     let mut nums: Vec<i32> = nums.iter()
                             .map(|s| s.trim().parse().unwrap())
                             .collect();
-    let n = nums.len();
-    selectionsort(&mut nums[..]);
+    insertionsort(&mut nums[..]);
     print!("Sorted array is : ");
     for item in nums.iter() {
         print!("{} ", item);
