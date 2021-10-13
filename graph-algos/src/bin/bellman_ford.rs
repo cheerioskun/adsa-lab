@@ -6,6 +6,7 @@ fn bellman_ford(edgeList: &Vec<((usize, usize), i32)>, n: usize, s: usize) -> Ve
     let mut dist = vec![inf; n];
     dist[s] = 0;
     for _ in 0..n {
+        // Relax all edges, considering it to be a directed graph
         for ((u, v), w) in edgeList {
             if dist[*u] + w < dist[*v] {
                 dist[*v] = dist[*u] + w;
