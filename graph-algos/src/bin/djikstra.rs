@@ -4,14 +4,19 @@ use priority_queue::DoublePriorityQueue;
 fn dijkstra(adjList: &Vec<Vec<(usize, i32)>>) -> Vec<i32> {
     let inf = 0x3f3f3f3f;
     let N = adjList.len();
+    // Initializing visited array and distance arrays
     let mut visited: Vec<bool> = vec![false; N];
     let mut dist: Vec<i32> = vec![inf; N];
+
+    // Initializing a priority queue and adding the nodes
     let mut pq:DoublePriorityQueue<usize, i32> = DoublePriorityQueue::with_capacity(N);
     for i in 1..N as usize {
         pq.push(i, inf);
     }
+    // Adding source node wit distance 0
     pq.push(0, 0);
     while !pq.is_empty() {
+        // Keep popping the closest node and operating on it
         let (u, d) = pq.pop_min().unwrap();
         visited[u] = true;
         dist[u] = d;
@@ -43,6 +48,7 @@ fn main() {
     for i in 0..N {
         adjList.push(Vec::new());
     }
+    // Taking in graph as an adjacency list
     for i in 0..M as usize{
         let u = nums[3*i + 2] as usize;
         let v = nums[3*i + 3] as usize;
